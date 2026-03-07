@@ -3,9 +3,9 @@
   "theme": "aspen",
   "name": "Garth",
   "colors": {
-    "primary": "#8B5CF6",
-    "light": "#7C3AED",
-    "dark": "#22D3EE"
+    "primary": "#7C3AED",
+    "light": "#1da6c8",
+    "dark": "#7C3AED"
   },
   "favicon": "/logo/garth.png",
   "navigation": {
@@ -91,7 +91,31 @@
   "footer": {
     "socials": {
       "linkedin": "https://linkedin.com/company/darnerai"
-    }
+    },
+    "links": [
+      {
+        "header": "Company",
+        "items": [
+          {
+            "label": "Darner",
+            "href": "https://darner.ai/"
+          }
+        ]
+      },
+      {
+        "header": "Products",
+        "items": [
+          {
+            "label": "PR Review Agent",
+            "href": "https://heygarth.ai/products/pr-review-agent/"
+          },
+          {
+            "label": "Code Scan Agent",
+            "href": "https://heygarth.ai/products/pr-code-agent/"
+          }
+        ]
+      }
+    ]
   },
   "redirects": [
     {

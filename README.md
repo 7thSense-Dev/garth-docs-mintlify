@@ -1,57 +1,82 @@
-# Mintlify Starter Kit
+# Garth Documentation
 
-Use the starter kit to get your docs deployed and ready to customize.
+This repository contains the source for the [Garth](https://app.heygarth.ai) documentation site, built with [Mintlify](https://mintlify.com).
 
-Click the green **Use this template** button at the top of this repo to copy the Mintlify starter kit. The starter kit contains examples with
+## Documentation structure
 
-- Guide pages
-- Navigation
-- Customizations
-- API reference pages
-- Use of popular components
+The site is organised into three navigation tabs, each with focused content:
 
-**[Follow the full quickstart guide](https://starter.mintlify.com/quickstart)**
+### Documentation tab
 
-## AI-assisted writing
+| Section                       | Pages                                                                                                                              |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Overview**                  | `overview.mdx` — platform introduction, supported Git platforms, feature summary                                                   |
+| **Setup your Git repository** | `setup/github.mdx`, `setup/bitbucket.mdx`, `setup/gitlab.mdx`, `setup/azure-devops.mdx`                                            |
+| **Pull request review**       | `pull-request-review/features.mdx`, `pull-request-review/repository-configuration.mdx`, `pull-request-review/customize-review.mdx` |
+| **Code scan**                 | `code-scan/features.mdx`, `code-scan/code-security.mdx`, `code-scan/code-quality.mdx`, `code-scan/repository-configuration.mdx`    |
 
-Set up your AI coding tool to work with Mintlify:
+### Pull Request Review tab
+
+Deep-dive pages for Garth's PR review capabilities — features, configuration, and custom instructions.
+
+### Code Scan tab
+
+Deep-dive pages for Garth's code scanning capabilities — security, quality, and repository configuration.
+
+---
+
+## Local development
+
+Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview changes locally:
 
 ```bash
-npx skills add https://mintlify.com/docs
-```
-
-This command installs Mintlify's documentation skill for your configured AI tools like Claude Code, Cursor, Windsurf, and others. The skill includes component reference, writing standards, and workflow guidance.
-
-See the [AI tools guides](/ai-tools) for tool-specific setup.
-
-## Development
-
-Install the [Mintlify CLI](https://www.npmjs.com/package/mint) to preview your documentation changes locally. To install, use the following command:
-
-```
 npm i -g mint
 ```
 
-Run the following command at the root of your documentation, where your `docs.json` is located:
+Run the local preview server from the root of this repository (where `docs.json` is located):
 
-```
+```bash
 mint dev
 ```
 
-View your local preview at `http://localhost:3000`.
+Open `http://localhost:3000` to view the docs. The site automatically reloads on save.
 
-## Publishing changes
+If the server fails to start, update the CLI first:
 
-Install our GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app) to propagate changes from your repo to your deployment. Changes are deployed to production automatically after pushing to the default branch.
+```bash
+mint update
+```
 
-## Need help?
+## Publishing
 
-### Troubleshooting
+This repository is connected to Mintlify via the GitHub app. Every push to the default branch is automatically deployed to the live documentation site. No manual build step is required.
 
-- If your dev environment isn't running: Run `mint update` to ensure you have the most recent version of the CLI.
-- If a page loads as a 404: Make sure you are running in a folder with a valid `docs.json`.
+To set up or manage the GitHub app integration, visit the [Mintlify dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
 
-### Resources
+## Configuration
+
+All site-wide settings — navigation, colours, logo, redirects, and footer — are defined in [`docs.json`](./docs.json).
+
+Key settings at a glance:
+
+| Setting              | Value                           |
+| -------------------- | ------------------------------- |
+| Theme                | `aspen`                         |
+| Primary colour       | `#8B5CF6`                       |
+| Default landing page | `/overview` (redirect from `/`) |
+| Favicon & logo       | `/logo/garth.png`               |
+| Footer               | LinkedIn → `darnerai`           |
+
+## Assets
+
+| Path             | Contents                                                                        |
+| ---------------- | ------------------------------------------------------------------------------- |
+| `/logo/`         | Garth logo and Git platform SVG icons (GitHub, GitLab, Azure DevOps, Bitbucket) |
+| `/images/setup/` | Screenshots used in the setup guides                                            |
+
+## Resources
 
 - [Mintlify documentation](https://mintlify.com/docs)
-- [Mintlify documentation settings](https://www.mintlify.com/docs/organize/settings)
+- [Mintlify component reference](https://mintlify.com/docs/components)
+- [Mintlify settings reference](https://www.mintlify.com/docs/organize/settings)
+- [Garth dashboard](https://app.heygarth.ai)
