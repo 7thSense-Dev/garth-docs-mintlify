@@ -2,10 +2,14 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "aspen",
   "name": "Garth",
+  "description": "Garth is an AI-powered code review agent that helps developers write better code by providing intelligent, context-aware feedback on pull requests.",
   "colors": {
     "primary": "#7C3AED",
     "light": "#1da6c8",
     "dark": "#7C3AED"
+  },
+  "background":{
+    "decoration": "grid"
   },
   "favicon": "/logo/garth.png",
   "navigation": {
@@ -75,6 +79,9 @@
         ]
       }
     ]
+  },
+  "icons": {
+    "library": "fontawesome"
   },
   "logo": {
     "light": "/logo/garth.png",
