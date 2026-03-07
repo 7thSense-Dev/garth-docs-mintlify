@@ -1,0 +1,51 @@
+---
+title: "Features"
+description: "What Garth's code scan detects — six scan categories covering security, dependencies, and code quality."
+---
+
+Code Scan performs a full-repository analysis on a schedule or on demand, independent of pull requests. It surfaces security vulnerabilities, exposed secrets, vulnerable dependencies, and code quality issues across your entire codebase.
+
+## Scan categories
+
+<Columns cols={2}>
+  <Card title="Secret scan" icon="key">
+    Detects hardcoded API keys, tokens, passwords, certificates, and other credentials accidentally committed to the repository — before they are exploited.
+  </Card>
+  <Card title="SCA" icon="cubes">
+    Software Composition Analysis identifies vulnerable, outdated, or licence-restricted third-party packages across your dependency tree.
+  </Card>
+  <Card title="SAST" icon="bug">
+    Static Application Security Testing finds security flaws in your source code — injection vulnerabilities, insecure configurations, and OWASP Top 10 issues — without running the application.
+  </Card>
+  <Card title="IaC" icon="server">
+    Infrastructure-as-Code scanning audits Terraform, CloudFormation, Kubernetes manifests, and Dockerfile configurations for misconfigurations and compliance violations.
+  </Card>
+  <Card title="Code complexity" icon="chart-line">
+    Identifies overly complex functions and modules using cyclomatic complexity and cognitive complexity metrics. High-complexity code is harder to maintain and more likely to harbour bugs.
+  </Card>
+  <Card title="Code duplicates" icon="copy">
+    Detects repeated code blocks across the codebase that should be consolidated into shared utilities, reducing maintenance overhead.
+  </Card>
+</Columns>
+
+## Scan triggers
+
+Scans can be initiated in two ways:
+
+<Columns cols={2}>
+  <Card title="Scheduled scans" icon="clock">
+    Configure a recurring schedule from the Garth dashboard. Garth will automatically scan your repositories at the defined cadence — daily, weekly, or at a custom interval — and surface any new findings.
+  </Card>
+  <Card title="Manual scans" icon="play">
+    Trigger a scan at any time directly from the Garth dashboard. Useful when you want to check the current state of a repository outside the normal schedule, such as before a release.
+  </Card>
+</Columns>
+
+## Scan results
+
+Results appear in the Garth dashboard, organised by category and severity. Each finding includes:
+
+- **Severity** — Critical, High, Medium, or Low
+- **File path and line number** — pinpointing exactly where the issue is
+- **Rule or CVE ID** — for traceability and reporting
+- **Remediation guidance** — concrete steps to resolve the finding

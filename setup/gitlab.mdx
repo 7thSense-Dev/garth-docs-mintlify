@@ -1,0 +1,142 @@
+---
+title: "GitLab"
+description: "Connect Garth to your GitLab.com repositories using a Group Access Token or Personal Access Token for automated code reviews."
+icon: "/logo/git/gitlab.svg"
+---
+
+Garth supports two token types for GitLab authentication. Use a **Group Access Token** if you are on GitLab Premium or Ultimate — it creates a managed bot user and simplifies permission management across the organization. Otherwise, use a **Personal Access Token** from a dedicated service account.
+
+## Step 1: Create an access token
+
+<AccordionGroup>
+  <Accordion title="Option A — Group Access Token (recommended for Premium/Ultimate)">
+    Group Access Tokens natively generate a bot user, making permission management much simpler across the organization.
+
+    <Steps>
+      <Step title="Navigate to your group">
+        Open the target group in the GitLab interface.
+      </Step>
+
+      <Step title="Open Access Token settings">
+        In the sidebar, go to **Settings → Access Tokens**.
+      </Step>
+
+      <Step title="Generate the token">
+        Assign **Developer** access and select the following scopes: `api`, `read_api`, `read_repository`, `write_repository`, `read_user`. Click **Generate**.
+
+        <Tip>
+          GitLab generates a random bot name such as `group_102_bot_xyz`. Group Administrators can rename the bot or update its avatar via the GitLab API to give Garth's comments a distinct identity.
+        </Tip>
+      </Step>
+    </Steps>
+
+  </Accordion>
+
+  <Accordion title="Option B — Personal Access Token (for non-Premium tiers)">
+    <Warning>
+      Do not use a personal user account. Code reviews will be attributed to the token owner. Create a standalone service account named `GPRABot` exclusively for this integration.
+    </Warning>
+
+    <Info>
+      The service account must be added to the relevant project as a **Maintainer** — this role is required to manage webhooks.
+    </Info>
+
+    <Steps>
+      <Step title="Authenticate as the service account">
+        Log into GitLab using the dedicated Garth service account.
+      </Step>
+
+      <Step title="Open Access Token settings">
+        Click your avatar → **Edit Profile** → **Access Tokens**.
+      </Step>
+
+      <Step title="Name the token">
+        Give the token a clear name such as `Garth Bot Key`. You can optionally set an expiry date; leaving it blank defaults to 365 days. If the token expires, Garth stops functioning until you replace it in the dashboard.
+      </Step>
+
+      <Step title="Select token scopes">
+        Enable the following scopes:
+
+        - `api`
+        - `read_api`
+        - `read_user`
+        - `read_repository`
+        - `write_repository`
+      </Step>
+
+      <Step title="Save the token">
+        Click **Create Personal Access Token** and copy the token immediately. **GitLab will not display it again.**
+      </Step>
+    </Steps>
+
+  </Accordion>
+</AccordionGroup>
+
+## Step 2: Link to Garth
+
+<Steps>
+  <Step title="Open Garth integrations">
+    Log into the [Garth dashboard](https://app.heygarth.ai/) and navigate to [Settings → Integrations](https://app.heygarth.ai/settings/integrations).
+  </Step>
+
+  <Step title="Bind the token">
+    Select the **GitLab** tab. Enter your **GitLab URL** (`https://gitlab.com`)
+    and the **Access Token** you just created, then click **Validate**.
+
+  ![GitLab integration settings showing token validation](/images/setup/gitlab_PAT_integration.png)
+
+  </Step>
+
+  <Step title="Install repositories">
+    After validation, select the repositories you want Garth to review and click **Install Repositories**.
+
+    <Info>
+      **Automatic webhooks:** Garth installs webhooks on selected repositories automatically. No manual webhook configuration is required. Webhooks are also removed automatically when you uninstall a repository.
+    </Info>
+
+    ![GitLab integration settings showing repository selection and Install Repositories button](/images/setup/gitlab_integration.png)
+
+  </Step>
+</Steps>
+
+## Network configuration
+
+If your infrastructure requires IP allowlisting, permit the following address through your firewall:
+
+```text
+34.117.160.133/32
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Webhook issues">
+    If Garth is not accessing repositories or reviewing merge requests:
+
+    1. **Check webhook status** — go to the project's settings in GitLab under **Webhooks** and verify the Garth webhook exists and is active.
+    2. **Manually delete the webhook** if it exists but is not working.
+    3. **Refresh the repository page** in the Garth app.
+    4. **Reinstall the webhook** — untoggle and re-toggle the repository in the Garth dashboard.
+
+  </Accordion>
+
+  <Accordion title="Installation problems">
+    If you cannot install Garth on a repository:
+
+    1. **Verify group/project membership** — the service account must hold at least `Maintainer` access to the target project to manage webhooks.
+    2. **Check token scopes** — confirm all required scopes (`api`, `read_api`, `read_user`, `read_repository`, `write_repository`) are present on the token.
+    3. **Re-validate the token** — go to **Settings → Integrations → GitLab** in Garth and re-enter your credentials.
+    4. **Toggle the repository** — uninstall and reinstall the repository from the Garth app to force a fresh webhook setup.
+
+  </Accordion>
+
+  <Accordion title="Authentication errors">
+    If you receive authentication or permission errors:
+
+    1. **Check token expiry** — GitLab Personal Access Tokens expire based on the date you set (or after 365 days by default). Regenerate and update the token in Garth if it has lapsed.
+    2. **Confirm the token type** — use either a **Group Access Token** with `api` scope and `Maintainer` role, or a **Personal Access Token** from the dedicated service account — not a personal user account.
+    3. **Verify Group Owner status** — the Garth user initiating the connection must hold GitLab Group Owner status.
+    4. **Re-authenticate** — update the token in **Settings → Integrations → GitLab** within Garth and re-link with a freshly generated token.
+
+  </Accordion>
+</AccordionGroup>

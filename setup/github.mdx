@@ -1,0 +1,116 @@
+---
+title: "GitHub"
+description: "Integrate Garth with your GitHub repositories to enable AI-powered automated code reviews and pull request feedback."
+icon: "/logo/git/github.svg"
+---
+
+<Warning>
+  You must have **owner-level access** for the GitHub organization or repository
+  you intend to connect. Without these administrative privileges you cannot
+  install the Garth GitHub App.
+</Warning>
+
+## Connect your GitHub account
+
+<Steps>
+  <Step title="Access the Garth portal">
+    Open your browser and navigate to the [Garth dashboard](https://app.heygarth.ai/).
+  </Step>
+
+  <Step title="Sign in">
+    Select **Continue with Google** or **Continue with Microsoft** to authenticate via OAuth.
+
+    <Tip>
+      If you don't have a Google or Microsoft account, sign up directly at [app.heygarth.ai](https://app.heygarth.ai/).
+    </Tip>
+
+  </Step>
+
+  <Step title="Create a Garth API key">
+    In the left navigation, go to **Developer → API Keys** and click **Create API Key**.
+
+    <Warning>
+      Copy the API key and store it securely. It is shown only once.
+    </Warning>
+
+  </Step>
+
+<Step title="Install the Garth GitHub App">
+  Navigate to the [Garth GitHub App](https://github.com/apps/garthpragent) and
+  click **Install**. Sign in to GitHub if prompted.
+</Step>
+
+  <Step title="Choose your workspace">
+    Select the GitHub organization or personal account where Garth should be installed.
+
+    <Tip>
+      If your organization does not appear, verify you have the correct administrative rights and check your GitHub App installation settings.
+    </Tip>
+
+  </Step>
+
+  <Step title="Configure repository scope">
+    Choose which repositories Garth can access:
+
+    - **All repositories** — installs Garth on every current and future repository.
+    - **Select repositories** — restricts Garth to specific projects you choose manually.
+
+    <Info>
+      Garth requires read/write access to pull requests and checks to post code reviews. **Your source code is never stored on Garth's servers.**
+    </Info>
+
+    Click **Install** to apply.
+
+  </Step>
+
+<Step title="Activate with your API key">
+  After clicking **Install**, you are redirected to the Garth platform. Enter
+  the API key you created earlier to complete the activation.
+</Step>
+
+  <Step title="Start reviewing">
+    Setup is complete. Open or update a pull request in any tracked repository to see Garth's automated AI reviews in action.
+  </Step>
+</Steps>
+
+## Network configuration
+
+If your infrastructure requires IP allowlisting, permit the following address through your firewall:
+
+```text
+34.117.160.133/32
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="App installation issues">
+    If you cannot install the Garth GitHub App:
+
+    1. **Verify owner-level access** — confirm you have **Owner** permissions for the organization or repository.
+    2. **Check organization settings** — some organizations restrict third-party app installations; an organization owner may need to approve Garth before installation succeeds.
+    3. **Re-trigger the installation** — return to the [Garth GitHub App](https://github.com/apps/garthpragent) page and attempt the installation again.
+    4. **Contact your GitHub admin** — if organization policies block app installations, your GitHub organization administrator must grant approval.
+
+  </Accordion>
+
+  <Accordion title="Reviews not appearing">
+    If Garth is installed but not reviewing pull requests:
+
+    1. **Confirm repository scope** — verify the repository is included under **All repositories** or is explicitly listed under **Select repositories** in your App installation settings.
+    2. **Check API key activation** — ensure you completed the API key activation step after installing the GitHub App.
+    3. **Verify pull request events** — Garth triggers on newly opened or updated pull requests. Re-open the PR or push a new commit to trigger a review.
+    4. **Review GitHub App permissions** — go to your GitHub organization settings under **Installed GitHub Apps → Garth → Permissions** and confirm read/write access to pull requests and checks is granted.
+
+  </Accordion>
+
+  <Accordion title="Authentication errors">
+    If you receive authentication or permission errors:
+
+    1. **Re-authenticate** — log out and back into the [Garth dashboard](https://app.heygarth.ai/) and retry connecting your GitHub account.
+    2. **Regenerate your API key** — go to **Developer → API Keys** in Garth, revoke the old key, and create a new one.
+    3. **Reinstall the GitHub App** — uninstall and reinstall the Garth GitHub App from your GitHub organization settings.
+    4. **Check SSO enforcement** — if your organization uses SAML SSO, you may need to authorize the Garth GitHub App for SSO access from your GitHub personal settings.
+
+  </Accordion>
+</AccordionGroup>

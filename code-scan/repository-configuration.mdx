@@ -1,0 +1,113 @@
+---
+title: "Repository configuration"
+description: "Configure code scan behaviour at the organisation level and override settings per repository."
+---
+
+Garth supports two levels of code scan configuration — **Organisation** and **Repository**. All settings are managed from the Garth dashboard with no config files required.
+
+## Configuration levels
+
+<Columns cols={2}>
+  <Card title="Organisation level" icon="building">
+    Settings apply to **all repositories** in your organisation by default. Use this to set a consistent scan baseline across your entire workspace.
+  </Card>
+  <Card title="Repository level" icon="code-branch">
+    Settings apply to a **single repository** and override the organisation defaults. Use this to customise scan behaviour for repositories that need different rules.
+  </Card>
+</Columns>
+
+<Note>
+  Repository-level settings take precedence over organisation-level settings. If
+  a setting is not configured at the repository level, the organisation default
+  applies.
+</Note>
+
+## Organisation-level configuration
+
+To configure org-level settings, navigate to [**Agent Setup → Repository Review**](https://app.heygarth.ai/agents/repository-review) in the Garth dashboard.
+
+Changes here apply to every repository in your organisation unless a repository overrides them.
+
+## Repository-level configuration
+
+To configure settings for a specific repository, navigate to [**Agent Setup → Repository Review**](https://app.heygarth.ai/agents/repository-review/repository-setup), select the repository, and open the **Repository Review** tab.
+
+---
+
+## Configuration options
+
+The following options are available at both the organisation and repository level.
+
+### Scan categories
+
+Enable or disable individual scan categories for a repository. By default all categories are enabled. Turn off categories that are not relevant to a given repository to reduce noise.
+
+| Category | Default |
+|---|---|
+| Secret scan | Enabled |
+| SCA | Enabled |
+| SAST | Enabled |
+| IaC | Enabled |
+| Code complexity | Enabled |
+| Code duplicates | Enabled |
+
+### Include file patterns
+
+Limit scanning to only the files and directories that match a set of patterns. When include patterns are configured, Garth analyses **only** the matching files and ignores everything else.
+
+Use this to focus scanning on specific areas of a monorepo or a large codebase — for example, scan only application source code and skip documentation, configuration, or tooling directories.
+
+Use this to target:
+- Specific source directories (for example, `src/**`, `app/**`)
+- A particular language or file type (for example, `**/*.py`, `**/*.tf`)
+- A single service within a monorepo (for example, `services/payments/**`)
+
+Accepts glob patterns. Multiple patterns can be configured — a file is included if it matches any one of them.
+
+### Exclude file patterns
+
+Skip scanning for specific files or directories. Files matching an exclude pattern are not analysed in any scan category.
+
+Use this to ignore:
+- Auto-generated files (for example, `**/*.generated.*`)
+- Database migration files (`migrations/**`)
+- Vendored or third-party code (`vendor/**`, `node_modules/**`)
+- Test fixtures or mock data (`**/__fixtures__/**`)
+- Build artefacts or lock files (`dist/**`, `*.lock`)
+
+Accepts glob patterns. Multiple patterns can be configured and are evaluated against every file in the repository.
+
+<Note>
+  When both include and exclude patterns are configured, include patterns are
+  applied first to narrow the scope, then exclude patterns are applied to remove
+  specific files from the result. Exclude patterns always take precedence over
+  include patterns.
+</Note>
+
+### Scan schedule
+
+Configure a recurring schedule to automatically run scans on your repositories. Scheduled scans run at the defined interval without any manual trigger.
+
+| | |
+|---|---|
+| **Options** | Daily, Weekly, or a custom interval |
+| **Configuration** | Set from the repository settings page in the Garth dashboard |
+
+### Manual scan
+
+Trigger a scan at any time from the [**Repository Scan**](https://app.heygarth.ai/repository-scan) page in the Garth dashboard, independent of the configured schedule. Useful before a release, after a significant merge, or when you want to check the current state of a repository on demand.
+
+<Steps>
+  <Step title="Open the Repository Scan page">
+    Navigate to [**Repository Scan**](https://app.heygarth.ai/repository-scan) in the Garth dashboard.
+  </Step>
+  <Step title="Select a repository">
+    Choose the repository you want to scan from the list. The page updates to show the latest scan results for that repository.
+  </Step>
+  <Step title="Trigger a scan">
+    Click **Run scan** to start a manual scan immediately. Garth will analyse the repository and surface findings once the scan is complete.
+  </Step>
+  <Step title="Review results">
+    Results appear on the same page, organised by scan category and severity. Select a finding to see the affected file, line number, and remediation guidance.
+  </Step>
+</Steps>

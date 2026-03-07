@@ -1,122 +1,96 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "aspen",
+  "name": "Garth",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#d96565",
+    "light": "#d96565",
+    "dark": "#d96565"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/logo/garth.png",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Overview",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "overview"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Setup your Git repository",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "setup/github",
+              "setup/bitbucket",
+              "setup/gitlab",
+              "setup/azure-devops"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Pull request review",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "pull-request-review/features",
+              "pull-request-review/repository-configuration",
+              "pull-request-review/customize-review"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Code scan",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "code-scan/features",
+              "code-scan/code-security",
+              "code-scan/code-quality",
+              "code-scan/repository-configuration"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Pull Request Review",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Pull request review",
             "pages": [
-              "api-reference/introduction"
+              "pull-request-review/features",
+              "pull-request-review/repository-configuration",
+              "pull-request-review/customize-review"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Code Scan",
+        "groups": [
           {
-            "group": "Endpoint examples",
+            "group": "Code scan",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "code-scan/features",
+              "code-scan/code-security",
+              "code-scan/code-quality",
+              "code-scan/repository-configuration"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    "light": "/logo/garth.png",
+    "dark": "/logo/garth.png"
   },
   "contextual": {
     "options": [
      "copy",
      "view",
      "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
+     "claude"
    ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "linkedin": "https://linkedin.com/company/darnerai"
     }
   }
 }

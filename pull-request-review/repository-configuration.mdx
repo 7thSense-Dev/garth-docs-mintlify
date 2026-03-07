@@ -1,0 +1,88 @@
+---
+title: "Repository configuration"
+description: "Configure pull request review behaviour at the organisation level and override settings per repository."
+---
+
+Garth supports two levels of pull request review configuration — **Organisation** and **Repository**. All settings are managed from the Garth dashboard with no config files required.
+
+## Configuration levels
+
+<Columns cols={2}>
+  <Card title="Organisation level" icon="building">
+    Settings apply to **all repositories** in your organisation by default. Use this to set a consistent baseline across your entire workspace.
+  </Card>
+  <Card title="Repository level" icon="code-branch">
+    Settings apply to a **single repository** and override the organisation defaults. Use this to customise behaviour for repositories that need different rules.
+  </Card>
+</Columns>
+
+<Note>
+  Repository-level settings take precedence over organisation-level settings. If
+  a setting is not configured at the repository level, the organisation default
+  applies.
+</Note>
+
+## Organisation-level configuration
+
+To configure org-level settings, navigate to [**Agent Setup → PR Review**](https://app.heygarth.ai/agents/pr-review) in the Garth dashboard.
+
+Changes here apply to every repository in your organisation unless a repository overrides them.
+
+## Repository-level configuration
+
+To configure settings for a specific repository, navigate to [**Agent Setup → PR Review**](https://app.heygarth.ai/agents/pr-review/repository-setup), select the repository, and open the **Pull Request Review** tab.
+
+---
+
+## Configuration options
+
+The following options are available at both the organisation and repository level.
+
+### Auto review
+
+Automatically start a review when a pull request is opened. When enabled, Garth begins analysing the PR immediately without any manual trigger.
+
+| | |
+|---|---|
+| **Default** | Enabled |
+| **Override** | Can be disabled per repository to require manual reviews using `garth-rr` |
+
+### Exclude source branch
+
+Filter out pull requests based on their **source branch** (the branch being merged from). Any PR whose source branch matches a configured pattern is skipped entirely — no review is posted.
+
+Use this to ignore:
+- Automated dependency update branches (for example, `dependabot/**`)
+- Release branches that follow a predictable naming convention
+- Any branch prefix your team uses for non-review work
+
+Accepts exact branch names or glob patterns such as `dependabot/**` or `release/*`.
+
+### Exclude destination branch
+
+Filter out pull requests based on their **destination branch** (the branch being merged into). Any PR targeting a matching branch is skipped.
+
+Use this to:
+- Restrict reviews to PRs targeting `main` or `develop` only
+- Skip reviews for PRs merging into long-lived feature branches
+- Exclude staging or environment branches from triggering reviews
+
+Accepts exact branch names or glob patterns such as `staging` or `env/*`.
+
+### Exclude files or paths
+
+Skip review for specific files or directories. When a pull request touches only excluded paths, no review comment is posted for those files.
+
+Use this to ignore:
+- Auto-generated files (for example, `**/*.generated.*`)
+- Database migration files (`migrations/**`)
+- Vendored or third-party code (`vendor/**`, `node_modules/**`)
+- Build artefacts or lock files (`dist/**`, `*.lock`)
+
+Accepts glob patterns. Multiple patterns can be configured and are evaluated against every file in the diff.
+
+<Tip>
+  Excluding paths removes those files from the review entirely. If you want
+  Garth to still review a path but adjust how it comments, use custom
+  instructions instead. See [Customize review](/pull-request-review/customize-review).
+</Tip>

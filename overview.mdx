@@ -1,0 +1,102 @@
+---
+title: "Overview"
+description: "Garth connects to your Git platform to deliver AI-powered pull request reviews and continuous code scanning — directly in your existing workflow."
+---
+
+Garth integrates with your Git platform to automatically review pull requests and scan your codebase for security vulnerabilities and quality issues. Everything is configured from the Garth web app — no CLI tooling or manual webhook setup required.
+
+## Supported Git platforms
+
+Connect Garth to any of the four major Git platforms:
+
+<Columns cols={2}>
+  <Card
+    title="GitHub"
+    icon="/logo/git/github.svg"
+    href="/setup/github"
+  >
+    Connect GitHub.com repositories for instant AI pull request reviews.
+  </Card>
+  <Card
+    title="GitLab"
+    icon="/logo/git/gitlab.svg"
+    href="/setup/gitlab"
+  >
+    Integrate with GitLab.com for comprehensive pull request analysis.
+  </Card>
+  <Card
+    title="Azure DevOps"
+    icon="/logo/git/azure_devops.svg"
+    href="/setup/azure-devops"
+  >
+    Seamless integration with Microsoft Azure DevOps repositories.
+  </Card>
+  <Card
+    title="Bitbucket"
+    icon="/logo/git/bitbucket.svg"
+    href="/setup/bitbucket"
+  >
+    AI code reviews for your Bitbucket Cloud repositories.
+  </Card>
+</Columns>
+
+## Pull request review
+
+Garth reviews every pull request with full awareness of the change context — not just the diff in isolation.
+
+<Columns cols={2}>
+  <Card title="Inline comments" icon="message-lines">
+    Line-level review comments appear directly on the diff, each with a concrete suggested code change.
+  </Card>
+  <Card title="PR summary" icon="file-lines">
+    Every review includes an **Overall Assessment**, a list of **Key Changes**, and actionable **Recommendations**.
+  </Card>
+</Columns>
+
+[Learn more about pull request review →](/pull-request-review/features)
+
+## Code scan
+
+Garth continuously scans your repositories for security and quality issues across six categories:
+
+<Columns cols={3}>
+  <Card title="Secret scan" icon="key">
+    Detect hardcoded credentials, API keys, and tokens before they reach production.
+  </Card>
+  <Card title="SCA" icon="cubes">
+    Identify vulnerable third-party dependencies and outdated packages.
+  </Card>
+  <Card title="SAST" icon="bug">
+    Find security flaws in your source code using static analysis.
+  </Card>
+  <Card title="IaC" icon="server">
+    Audit infrastructure-as-code files for misconfigurations and compliance issues.
+  </Card>
+  <Card title="Code complexity" icon="chart-line">
+    Surface overly complex functions and modules that increase maintenance risk.
+  </Card>
+  <Card title="Code duplicates" icon="copy">
+    Identify repeated code blocks that should be consolidated.
+  </Card>
+</Columns>
+
+Scans can be **scheduled** to run automatically on a defined cadence or **triggered manually** from the Garth dashboard at any time.
+
+[Learn more about code scan →](/code-scan/features)
+
+## How it works
+
+<Steps>
+  <Step title="Connect your Git platform">
+    From the Garth web app, go to **Settings → Integrations** and link your GitHub, GitLab, Azure DevOps, or Bitbucket account using a personal access token or OAuth.
+  </Step>
+  <Step title="Install repositories">
+    Select the repositories you want Garth to monitor. Garth automatically installs and manages webhooks — no manual configuration needed.
+  </Step>
+  <Step title="Receive pull request reviews">
+    When a pull request is opened, Garth analyses the changes in context and posts an inline review with line-level comments, code suggestions, and a summary.
+  </Step>
+  <Step title="Run code scans">
+    Schedule recurring scans or trigger them on demand. Results surface in the Garth dashboard, organized by severity and category.
+  </Step>
+</Steps>
