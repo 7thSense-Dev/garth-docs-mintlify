@@ -92,5 +92,11 @@
     "socials": {
       "linkedin": "https://linkedin.com/company/darnerai"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/overview"
+    }
+  ]
 }
