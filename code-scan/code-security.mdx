@@ -1,0 +1,85 @@
+---
+title: "Code security"
+description: "How Garth detects and reports security vulnerabilities in your codebase."
+---
+
+Garth's code security scan identifies vulnerabilities using static analysis, dependency auditing, and secret detection.
+
+## Static analysis
+
+Garth runs SAST (Static Application Security Testing) rules against your source code to find common vulnerability patterns.
+
+<AccordionGroup>
+  <Accordion title="Injection flaws">
+    Detects SQL injection, command injection, LDAP injection, and similar
+    patterns where user input reaches sensitive APIs without sanitization.
+  </Accordion>
+  <Accordion title="Broken authentication">
+    Flags weak session management, insecure password storage, and missing
+    authentication on sensitive endpoints.
+  </Accordion>
+  <Accordion title="Sensitive data exposure">
+    Identifies unencrypted storage of sensitive data, weak cryptographic
+    algorithms, and missing TLS enforcement.
+  </Accordion>
+  <Accordion title="Insecure deserialization">
+    Detects unsafe deserialization of untrusted data that could lead to remote
+    code execution.
+  </Accordion>
+  <Accordion title="Security misconfigurations">
+    Catches overly permissive CORS settings, disabled security headers, and
+    default credentials.
+  </Accordion>
+</AccordionGroup>
+
+## Infrastructure-as-Code (IaC)
+
+Garth scans infrastructure definition files for misconfigurations and security policy violations — catching cloud and container issues before they reach production.
+
+<AccordionGroup>
+  <Accordion title="Supported file types">
+    Garth analyses the following IaC formats:
+
+    - **Terraform** — `.tf` files
+    - **AWS CloudFormation** — `template.yaml`, `template.json`
+    - **Kubernetes** — deployment, service, and ingress manifests (`.yaml`)
+    - **Dockerfile** — `Dockerfile` and `*.dockerfile`
+    - **Docker Compose** — `docker-compose.yml`
+  </Accordion>
+  <Accordion title="Misconfiguration detection">
+    Flags infrastructure settings that introduce security risk, such as:
+
+    - Storage buckets or databases with public access enabled
+    - Missing encryption at rest or in transit
+    - Overly permissive IAM roles or security group rules
+    - Root account usage or missing MFA enforcement
+    - Containers running as root or with privileged access
+  </Accordion>
+  <Accordion title="Compliance checks">
+    Evaluates configurations against common security benchmarks including CIS
+    Foundations, NIST, SOC 2, and PCI DSS controls relevant to cloud infrastructure.
+  </Accordion>
+</AccordionGroup>
+
+## Secret detection
+
+Garth scans every file in the repository for leaked credentials and secrets. Detected secrets are reported in the Garth dashboard with the file path, line number, and secret type.
+
+Common findings include API keys, tokens, passwords, private keys, and connection strings committed directly to the repository.
+
+## Dependency scanning
+
+Garth checks your lockfiles against the [OSV database](https://osv.dev) and GitHub Advisory Database.
+
+| Package manager | Lockfile                                          |
+| --------------- | ------------------------------------------------- |
+| npm / Yarn      | `package-lock.json`, `yarn.lock`                  |
+| Python          | `requirements.txt`, `Pipfile.lock`, `poetry.lock` |
+| Java            | `pom.xml`, `build.gradle`                         |
+| .NET            | `packages.lock.json`                              |
+| Ruby            | `Gemfile.lock`                                    |
+
+<Warning>
+  Dependency scanning only runs on files tracked in your repository. Vendored or
+  generated lockfiles must be committed to be scanned.
+</Warning>

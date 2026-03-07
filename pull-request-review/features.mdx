@@ -1,0 +1,92 @@
+---
+title: "Features"
+description: "How Garth reviews pull requests — context-aware analysis, inline code suggestions, and a structured PR summary."
+---
+
+Garth reviews every pull request automatically the moment it is opened. Reviews are context-aware — Garth understands the intent of the change, not just the raw diff — and posts findings directly on your code before your team merges.
+
+## Inline review comments
+
+Garth attaches review comments at the line level, on the exact lines where an issue is found. Every comment includes a clear explanation and a **suggested code change** that can be applied directly from the pull request UI with a single click.
+
+Comments are classified into three types:
+
+<Columns cols={1}>
+  <Card title="Severity" horizontal icon="triangle-exclamation">
+    Flags issues that affect correctness or security and should be resolved before merging — for example, a bug, a vulnerability, or an unsafe pattern.
+  </Card>
+  <Card title="Improvement" horizontal icon="arrow-up-right-dots">
+    Highlights opportunities to make the code cleaner, more readable, or easier to maintain without blocking the merge.
+  </Card>
+  <Card title="Caution" horizontal icon="circle-exclamation">
+    Draws attention to areas that are not necessarily wrong but deserve a second look — edge cases, assumptions, or patterns that may cause problems later.
+  </Card>
+</Columns>
+
+This keeps feedback actionable and eliminates the back-and-forth of vague review notes.
+
+## PR summary
+
+At the top of every pull request, Garth posts a structured summary comment with three sections:
+
+<Columns cols={1}>
+  <Card title="Overall assessment" horizontal icon="circle-check">
+    A concise verdict on the pull request — whether it is ready to merge, needs changes, or has critical issues that must be resolved first. This gives reviewers an immediate signal without reading every comment.
+  </Card>
+  <Card title="Key changes" horizontal icon="list-check">
+    A plain-language breakdown of what the PR actually changes — which features are added, modified, or removed, and why. This gives reviewers instant context without having to read every file in the diff.
+  </Card>
+  <Card title="Recommendations" horizontal icon="lightbulb">
+    Prioritised, actionable suggestions for improving the implementation. Recommendations cover correctness, security, performance, and maintainability, ordered by impact so the most important items stand out.
+  </Card>
+</Columns>
+
+## Change context awareness
+
+Garth analyses each pull request in context:
+
+- It understands the **purpose of the change**, not just what lines were added or removed
+- It considers **how changed code interacts** with the surrounding codebase
+- It avoids flagging issues that are **intentional or already handled** elsewhere in the PR
+
+This reduces noise and keeps review comments relevant.
+
+## How reviews are delivered
+
+<Steps>
+  <Step title="PR is opened">
+    Garth is triggered automatically via webhook when a pull request is opened. It analyses the diff in the context of the full repository.
+  </Step>
+  <Step title="Review is posted">
+    Inline comments appear on the relevant lines of the diff. The PR summary — Overall Assessment, Key Changes, and Recommendations — is posted as a top-level comment.
+  </Step>
+  <Step title="Developer acts">
+    Developers apply suggested code changes with one click or address the findings manually.
+  </Step>
+  <Step title="Request a re-review">
+    After pushing new changes, add a comment with `garth-rr` on the pull request to trigger a fresh review from Garth.
+  </Step>
+</Steps>
+
+<Tip>
+  Use `garth-rr` as a pull request comment whenever you want Garth to re-analyse the latest state of your PR — for example, after addressing feedback or rebasing.
+</Tip>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card
+    title="Repository configuration"
+    icon="sliders"
+    href="/pull-request-review/repository-configuration"
+  >
+    Control which repositories and branches Garth reviews, and which paths to exclude.
+  </Card>
+  <Card
+    title="Customize review"
+    icon="pen-to-square"
+    href="/pull-request-review/customize-review"
+  >
+    Write custom instructions to align Garth's reviews with your team's standards and priorities.
+  </Card>
+</Columns>

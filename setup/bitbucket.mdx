@@ -1,0 +1,146 @@
+---
+title: "Bitbucket"
+description: "Connect Garth to your Bitbucket Cloud repositories for AI-driven pull request reviews and inline code feedback."
+icon: "/logo/git/bitbucket.svg"
+---
+
+Garth enhances your Bitbucket Cloud workflow with:
+
+- **Real-time pull request checks** — immediate scanning of new PRs.
+- **Inline feedback** — actionable suggestions attached directly to your diffs.
+- **Automatic webhooks** — event-driven architecture with no manual webhook setup required.
+
+## Step 1: Create the integration account
+
+<Warning>
+  Create a **dedicated Bitbucket service account** for Garth rather than binding
+  the integration to a personal account. Code reviews will be attributed to this
+  account.
+</Warning>
+
+<Steps>
+  <Step title="Register the account">
+    Log out of your personal Bitbucket account and create a new user specifically for this integration.
+  </Step>
+
+<Step title="Finalize the profile">
+  - Set the username to something identifiable, such as `GPRABot`. - Use a team
+  alias email rather than a personal address. - Enable Two-Step Verification
+  (2FA) if required by your company policy.
+</Step>
+
+  <Step title="Associate with your workspace">
+    Add the new service account to your primary Bitbucket workspace and grant it at minimum `Developer` access on the projects you want Garth to analyze.
+  </Step>
+</Steps>
+
+<Info>
+  When you rotate the service account later, update the token in Garth and
+  re-enable repository tracking — no other reconfiguration is needed.
+</Info>
+
+## Step 2: Create an API token
+
+<Steps>
+  <Step title="Authenticate as the service account">
+    Ensure you are logged into Bitbucket using the dedicated Garth service account.
+  </Step>
+
+<Step title="Open API token settings">
+  Go to **Personal settings** and select **API Tokens** under the Access
+  Management section.
+</Step>
+
+<Step title="Create the token">
+  Click **Create token** and give it a descriptive label such as `Garth PR
+  Token`.
+</Step>
+
+  <Step title="Select token scopes">
+    Grant the following permissions:
+
+    | Group | Required scope | Purpose |
+    |-------|---------------|---------|
+    | **Account** | `read:account` | Validates user identity |
+    | **User** | `read:user:bitbucket` | Validates user identity |
+    | **Workspace** | `read:workspace:bitbucket`, `admin:project:bitbucket` | Confirms workspace association |
+    | **Repositories** | `read:repository:bitbucket`, `write:repository:bitbucket` | Scans diffs and manages webhooks |
+    | **Pull requests** | `read:pullrequest:bitbucket`, `write:pullrequest:bitbucket` | Receives PR events and posts review comments |
+    | **Webhooks** | `read:webhook:bitbucket`, `write:webhook:bitbucket` | Installs and manages webhooks automatically |
+
+  </Step>
+
+  <Step title="Save the token">
+    Copy the token immediately after creation — **Bitbucket displays it only once**. Store it in a secure location.
+  </Step>
+</Steps>
+
+## Step 3: Link to Garth
+
+<Steps>
+  <Step title="Open Garth integrations">
+    Log into the [Garth dashboard](https://app.heygarth.ai/) and navigate to [Settings → Integrations](https://app.heygarth.ai/settings/integrations).
+  </Step>
+
+  <Step title="Bind the token">
+    Select the **Bitbucket** tab. Enter your **Bitbucket URL**
+    (`https://bitbucket.org/your-workspace`), **Username** (the service account's
+    email), and **Personal Access Token**, then click **Validate**.
+
+    ![Bitbucket integration settings showing token validation](/images/setup/bitbucket_PAT_integration.png)
+
+  </Step>
+
+  <Step title="Install repositories">
+    After validation, select the repositories you want Garth to review and click **Install Repositories**.
+
+    <Info>
+      **Automatic webhooks:** Garth installs webhooks on selected repositories automatically. No manual webhook configuration is required. Webhooks are also removed automatically when you uninstall a repository.
+    </Info>
+
+    ![Bitbucket integration settings showing repository selection and Install Repositories button](/images/setup/bitbucket_integration.png)
+
+  </Step>
+</Steps>
+
+## Network configuration
+
+If your infrastructure requires IP allowlisting, permit the following address through your firewall:
+
+```text
+34.117.160.133/32
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Webhook issues">
+    If Garth is not accessing repositories or reviewing pull requests:
+
+    1. **Check webhook status** — go to your Bitbucket repository settings and verify the Garth webhook exists and is active.
+    2. **Manually delete the webhook** if it exists but is not working.
+    3. **Refresh the repository page** in the Garth app.
+    4. **Reinstall the webhook** — uninstall and reinstall the repository from the Garth dashboard.
+
+  </Accordion>
+
+  <Accordion title="Installation problems">
+    If you cannot install Garth on a repository:
+
+    1. **Verify workspace membership** — confirm the service account is in the Bitbucket workspace with at least `Developer` access.
+    2. **Check token scopes** — confirm all required scopes (especially `admin:project:bitbucket` and `write:repository:bitbucket`) are granted.
+    3. **Re-validate the token** — go to **Settings → Integrations → Bitbucket** in Garth and re-enter your credentials.
+    4. **Toggle the repository** — uninstall and reinstall the repository from the Garth app to force a fresh webhook setup.
+
+  </Accordion>
+
+  <Accordion title="Authentication errors">
+    If you receive authentication or permission errors:
+
+    1. **Check token expiry** — Bitbucket API tokens can expire; regenerate and update the token in Garth if needed.
+    2. **Confirm the username field** — the **Username** entered during setup must be the service account's email address, not a display name.
+    3. **Verify 2FA compatibility** — if Two-Step Verification is enabled, confirm the API token was generated under **Personal Settings → API Tokens**, not via a password-based approach.
+    4. **Re-authenticate** — update the token in the Bitbucket integration settings in Garth and re-link with a freshly generated token.
+
+  </Accordion>
+</AccordionGroup>

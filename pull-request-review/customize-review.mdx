@@ -1,0 +1,74 @@
+---
+title: "Customize review"
+description: "Give Garth custom instructions to tailor reviews to your team's standards, conventions, and priorities."
+---
+
+Garth lets you provide custom instructions that shape how it analyses and comments on pull requests. This allows you to align reviews with your team's specific coding standards, architectural decisions, and areas of focus — without changing any code.
+
+<Note>
+  Custom instructions are configured at the **repository level** only. There is
+  no organisation-wide custom instructions setting — each repository maintains
+  its own instructions independently.
+</Note>
+
+## Custom instructions
+
+Custom instructions are guidelines you write for a specific repository. Garth reads them before reviewing every pull request and applies them as part of its analysis.
+
+Instructions can be written as **plain text** or **Markdown**. Markdown formatting — such as bullet lists, bold text, and headings — is fully supported and can help structure longer or more detailed instructions clearly.
+
+You can use custom instructions to:
+
+- Enforce team-specific coding conventions that aren't covered by standard rules
+- Tell Garth to prioritise certain areas — for example, *"Pay close attention to authentication and authorisation logic"*
+- Give context about the codebase — for example, *"This service is latency-sensitive; flag any blocking I/O in request handlers"*
+- Set the tone of comments — for example, *"Be concise. Skip informational comments on trivial style issues"*
+- Exclude patterns that are intentional in this project — for example, *"We use string concatenation for SQL in the legacy module — do not flag these"*
+
+## Setting custom instructions
+
+<Steps>
+  <Step title="Open repository settings">
+    In the Garth dashboard, navigate to **Settings → Repositories** and select the repository you want to customise.
+  </Step>
+  <Step title="Open the Custom instructions tab">
+    Select the **Custom instructions** tab on the repository settings page.
+  </Step>
+  <Step title="Write your instructions">
+    Enter your instructions in the text field. You can write in plain text or use Markdown formatting — bullet lists, bold text, and headings are all supported. Instructions can be as short as a few lines or as detailed as your team needs.
+  </Step>
+  <Step title="Save">
+    Save your instructions. Garth applies them to every review from that point forward.
+  </Step>
+</Steps>
+
+## Writing effective instructions
+
+<Card title="Be specific, not generic" horizontal icon="bullseye">
+  Vague instructions like *"write good code"* have no effect. Specific instructions like *"flag any database query inside a loop"* give Garth clear, actionable direction.
+</Card>
+<Card title="Provide context" horizontal icon="circle-info">
+  Tell Garth about the purpose of the repository, the team's priorities, or known trade-offs in the codebase. The more context you provide, the more relevant the review.
+</Card>
+<Card title="Iterate over time" horizontal icon="arrows-rotate">
+  Start with a few high-priority instructions and refine them based on the reviews you receive. Add more as you identify patterns in the feedback that need adjusting.
+</Card>
+
+## Example instructions
+
+```text
+- This is a financial services API. Prioritise security issues above all else,
+  especially anything related to input validation, authentication, and data exposure.
+- Flag any use of raw SQL queries — we use an ORM for all database access.
+- The `/legacy` directory is maintained separately. Do not comment on style
+  issues there, but do flag security vulnerabilities.
+- Keep comments concise. Skip suggestions for renaming variables unless the
+  name is genuinely misleading.
+```
+
+<Tip>
+  Custom instructions complement repository configuration. Use [Repository
+  configuration](/pull-request-review/repository-configuration) to control
+  *what* Garth reviews (which branches and paths), and custom instructions to
+  control *how* Garth reviews it.
+</Tip>

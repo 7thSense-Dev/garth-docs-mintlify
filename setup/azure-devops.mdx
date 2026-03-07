@@ -1,0 +1,145 @@
+---
+title: "Azure DevOps"
+description: "Connect Garth to your Azure DevOps pipeline using a Personal Access Token for intelligent, automated pull request analysis."
+icon: "/logo/git/azure_devops.svg"
+---
+
+Garth integrates with Azure DevOps to deliver:
+
+- **Instant code reviews** on active pull requests.
+- **Actionable inline suggestions** on every diff.
+- **Smooth alignment** with standard Azure enterprise workflows.
+
+## Step 1: Create the integration account
+
+<Warning>
+  Create a **dedicated Azure DevOps service account** for Garth rather than
+  binding the integration to a personal staff account.
+</Warning>
+
+<Steps>
+  <Step title="Register the account">
+    Log out of your personal Azure DevOps account and create a new user specifically for this integration.
+  </Step>
+
+<Step title="Finalize the profile">
+  - Set the username to something identifiable, such as `GPRABot`. - Use a team
+  alias email rather than a personal address. - Enable Two-Step Verification
+  (2FA) if required by your company policy.
+</Step>
+
+  <Step title="Associate with your organization">
+    Add the new service account to your primary Azure DevOps organization and the projects you want Garth to analyze.
+  </Step>
+</Steps>
+
+<Info>
+  When you rotate the service account later, update the token in Garth and
+  re-enable repository tracking — no other reconfiguration is needed.
+</Info>
+
+## Step 2: Create a Personal Access Token (PAT)
+
+<Steps>
+  <Step title="Authenticate as the service account">
+    Ensure you are logged into Azure DevOps using the dedicated Garth service account.
+  </Step>
+
+<Step title="Open security settings">
+  Navigate to **Edit Profile** and select **Personal access tokens**.
+</Step>
+
+<Step title="Create the token">
+  Click **New token** and give it a descriptive name such as `Garth PR Token`.
+</Step>
+
+<Step title="Set the expiration">
+  For production use, set the expiration to **1 year**.
+</Step>
+
+  <Step title="Select token scopes">
+    Grant exactly the following permissions:
+
+    | Scope | Access |
+    |-------|--------|
+    | Build | Read |
+    | Code | Read & Write |
+    | Identity | Read |
+    | Member Entitlement Management | Read |
+    | Pull Request Threads | Read & Write |
+    | Work Items | Read |
+
+  </Step>
+
+  <Step title="Save the token">
+    Copy the token immediately after generation — **Azure DevOps displays it only once**. Store it in a secure location.
+  </Step>
+</Steps>
+
+## Step 3: Link to Garth
+
+<Steps>
+  <Step title="Open Garth integrations">
+    Log into the [Garth dashboard](https://app.heygarth.ai/) and navigate to [Settings → Integrations](https://app.heygarth.ai/settings/integrations).
+  </Step>
+
+  <Step title="Bind the token">
+    Select the **Azure DevOps** tab. Enter your **Azure DevOps URL**
+    (`https://dev.azure.com/your-organization`), **Username** (the service
+    account's email), and **Personal Access Token**, then click **Validate**.
+
+    ![Azure DevOps integration settings showing token validation](/images/setup/azure_devops_PAT_integration.png)
+
+  </Step>
+
+  <Step title="Install repositories">
+    After validation, select the repositories you want Garth to review and click **Install Repositories**.
+
+    <Info>
+      **Automatic webhooks:** Garth installs webhooks on selected Azure DevOps projects automatically. No manual webhook configuration is required. Webhooks are also removed automatically when you uninstall a repository.
+    </Info>
+
+  </Step>
+</Steps>
+
+## Network configuration
+
+If your infrastructure requires IP allowlisting, permit the following address through your firewall:
+
+```text
+34.117.160.133/32
+```
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Webhook issues">
+    If Garth is not accessing repositories or reviewing pull requests:
+
+    1. **Check webhook status** — go to your Azure DevOps project settings under **Service Hooks** and verify the Garth webhook exists and is active.
+    2. **Manually delete the webhook** if it exists but is not working.
+    3. **Refresh the repository page** in the Garth app.
+    4. **Reinstall the webhook** — untoggle and re-toggle the repository in the Garth dashboard.
+
+  </Accordion>
+
+  <Accordion title="Installation problems">
+    If you cannot install Garth on a repository:
+
+    1. **Verify permission levels** — the service account must hold **Project Administrator** or **Project Collection Administrator** permissions.
+    2. **Check token scopes** — confirm the PAT includes **Code: Read & Write** and **Work Items: Read** capabilities.
+    3. **Re-validate the token** — go to **Settings → Integrations → Azure DevOps** in Garth and re-enter your credentials.
+    4. **Toggle the repository** — uninstall and reinstall the repository from the Garth app to force a fresh webhook setup.
+
+  </Accordion>
+
+  <Accordion title="Authentication errors">
+    If you receive authentication or permission errors:
+
+    1. **Check token expiry** — Azure DevOps PATs expire based on the timeframe you set; regenerate and update the token in Garth if it has lapsed.
+    2. **Confirm Entra ID is enabled** — your organization must have Entra ID (formerly Azure Active Directory) active for the integration to function.
+    3. **Verify Microsoft App Consent** — confirm your IT administrator has approved the Garth application in the Microsoft consent portal if administrative approval is required.
+    4. **Re-authenticate** — update the PAT in **Settings → Integrations → Azure DevOps** within Garth and re-link with a freshly generated token.
+
+  </Accordion>
+</AccordionGroup>

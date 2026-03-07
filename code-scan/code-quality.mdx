@@ -1,0 +1,36 @@
+---
+title: "Code quality"
+description: "How Garth detects code complexity and duplicate code across your repositories."
+---
+
+Garth's code quality scan identifies complexity hotspots and duplicated logic across your codebase, helping you reduce technical debt before it accumulates.
+
+## Code complexity
+
+Garth measures complexity at the function level using two complementary metrics:
+
+<Columns cols={2}>
+  <Card title="Cyclomatic complexity" icon="chart-line">
+    Measures the number of independent execution paths through a function. High cyclomatic complexity means more test cases are needed and the code is harder to change safely.
+  </Card>
+  <Card title="Cognitive complexity" icon="brain">
+    Captures how difficult code is to read and understand, accounting for nesting depth, control flow breaks, and logical operators — a better proxy for human comprehension than cyclomatic complexity alone.
+  </Card>
+</Columns>
+
+Functions that exceed complexity thresholds are flagged in the Garth dashboard with the file path, function name, and complexity score so you can prioritise refactoring effort.
+
+## Duplicate code
+
+Garth scans the codebase for repeated blocks of logic that have been copy-pasted across files or modules.
+
+<Columns cols={2}>
+  <Card title="Duplicate block detection" icon="copy">
+    Identifies code blocks that are identical or near-identical across different files. Each finding shows the affected locations so you can consolidate them into a shared utility.
+  </Card>
+  <Card title="Duplication percentage" icon="percent">
+    Reports the overall duplication ratio for the repository, giving you a high-level view of how much of the codebase consists of repeated logic.
+  </Card>
+</Columns>
+
+Reducing duplication lowers maintenance overhead — a bug fixed in one place no longer needs to be fixed in ten.
