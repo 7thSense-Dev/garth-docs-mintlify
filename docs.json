@@ -3,9 +3,9 @@
   "theme": "aspen",
   "name": "Garth",
   "colors": {
-    "primary": "#d96565",
-    "light": "#d96565",
-    "dark": "#d96565"
+    "primary": "#8B5CF6",
+    "light": "#7C3AED",
+    "dark": "#22D3EE"
   },
   "favicon": "/logo/garth.png",
   "navigation": {
