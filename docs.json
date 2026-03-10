@@ -24,7 +24,7 @@
             ]
           },
           {
-            "group": "Setup your Git repository",
+            "group": "Setup your repository",
             "pages": [
               "setup/github",
               "setup/bitbucket",
