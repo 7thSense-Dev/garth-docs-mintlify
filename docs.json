@@ -84,8 +84,15 @@
     "library": "fontawesome"
   },
   "logo": {
-    "light": "/logo/garth.png",
-    "dark": "/logo/garth.png"
+    "light": "/logo/garth_light.png",
+    "dark": "/logo/garth_dark.png"
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Support",
+      "href": "mailto:supports@darner.ai"
+    }
   },
   "contextual": {
     "options": [
